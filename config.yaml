@@ -1,0 +1,18 @@
+lr: 0.00005
+num_epochs: 10
+batch_size: 16
+num_workers: 8
+
+train_paths:
+  - D:/DeepFakeDetector/DeepfakeDetector/data/train
+
+val_paths:
+  - D:/DeepFakeDetector/DeepfakeDetector/data/validation
+
+early_stopping_patience: 3
+scheduler_factor: 0.5
+scheduler_patience: 2
+monitor_metric: val_loss
+
+log_every_n_steps: 1
+save_top_k: 1

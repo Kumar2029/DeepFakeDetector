@@ -1,0 +1,23 @@
+Timestamp,Filename,Type,Face Detected,Prediction,Confidence
+2026-04-25 10:19:05,download (2).jpg,Image,Yes,Deepfake,60.98%
+2026-04-25 10:19:22,download (2).jpg,Image,Yes,Deepfake,60.98%
+2026-04-25 10:20:40,download (5).jpg,Image,Yes,Real,96.89%
+2026-04-25 10:20:52,download.jpg,Image,Yes,Real,99.72%
+2026-04-25 10:20:59,download (1).jpg,Image,Yes,Real,99.99%
+2026-04-25 10:21:04,download (2).jpg,Image,Yes,Real,99.84%
+2026-04-25 10:21:16,download (3).jpg,Image,Yes,Real,99.36%
+2026-04-25 10:21:27,download (2).jpg,Image,Yes,Real,100.00%
+2026-04-25 10:21:32,download.jpg,Image,Yes,Real,99.99%
+2026-04-25 10:22:23,download (1).jpg,Image,Yes,Real,100.00%
+2026-04-25 10:22:29,download (3).jpg,Image,Yes,Real,99.96%
+2026-04-25 10:22:35,download (4).jpg,Image,Yes,Real,100.00%
+2026-04-25 10:26:28,download (2).jpg,Image,Yes,Real,100.00%
+2026-04-25 10:27:02,download6.jpg,Image,Yes,Real,100.00%
+2026-04-25 10:29:10,WhatsApp Image 2026-04-24 at 8.37.35 PM.jpeg,Image,Yes,Real,99.97%
+2026-04-25 10:29:17,WhatsApp Image 2026-04-24 at 7.58.41 PM.jpeg,Image,Yes,Real,99.91%
+2026-04-25 10:29:25,WhatsApp Image 2026-04-24 at 7.55.09 PM.jpeg,Image,Yes,Real,100.00%
+2026-04-25 10:31:14,AI1.jpg,Image,Yes,Real,100.00%
+2026-04-25 11:05:02,test_fake.jpg,Image,Yes,Deepfake,78.40%
+2026-04-25 11:26:45,test_fake.jpg,Image,Yes,DEEPFAKE,78.40%
+2026-04-25 20:33:36,WhatsApp Image 2026-04-24 at 7.58.41 PM (1).jpeg,Image,Yes,REAL,99.91%
+2026-04-25 20:34:51,WhatsApp Image 2026-04-24 at 8.37.35 PM.jpeg,Image,Yes,REAL,99.97%

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepfake Detector</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --text2: #6b6a64;
+    --text3: #9b9a94;
+    --accent: #2563eb;
+    --danger: #dc2626;
+    --danger-light: #fef2f2;
+    --radius: 10px;
+    --radius-sm: 6px;
+}
+body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.wrap {
+    width: 100%;
+    max-width: 380px;
+}
+.brand {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.brand-logo {
+    width: 44px;
+    height: 44px;
+    background: var(--text);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+}
+.brand-logo svg { width: 20px; height: 20px; fill: white; }
+.brand h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; }
+.brand p { font-size: 13px; color: var(--text3); margin-top: 4px; }
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+}
+.tabs {
+    display: flex;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 3px;
+    margin-bottom: 24px;
+    gap: 3px;
+}
+.tab {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text3);
+    background: none;
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    font-family: inherit;
+    transition: all 0.15s;
+}
+.tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; letter-spacing: 0.1px; }
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--surface);
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 16px;
+}
+input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.btn {
+    width: 100%;
+    padding: 11px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: -0.2px;
+}
+.btn:hover { background: #111; }
+.error {
+    background: var(--danger-light);
+    color: var(--danger);
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    margin-top: 12px;
+    display: none;
+}
+.footer { text-align: center; font-size: 12px; color: var(--text3); margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="brand">
+        <div class="brand-logo">
+            <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 8a2 2 0 114 0 2 2 0 01-4 0z"/></svg>
+        </div>
+        <h1>Deepfake Detector</h1>
+        <p>AI-powered media authenticity analysis</p>
+    </div>
+
+    <div class="card">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login', this)">Sign in</button>
+            <button class="tab" onclick="switchTab('register', this)">Create account</button>
+        </div>
+
+        <div id="login-form">
+            <label>Username</label>
+            <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username">
+            <label>Password</label>
+            <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter') login()">
+            <button class="btn" onclick="login()">Sign in</button>
+            <div class="error" id="login-error"></div>
+        </div>
+
+        <div id="register-form" style="display:none">
+            <label>Username</label>
+            <input type="text" id="reg-user" placeholder="Choose a username" autocomplete="username">
+            <label>Password</label>
+            <input type="password" id="reg-pass" placeholder="Choose a password" autocomplete="new-password" onkeydown="if(event.key==='Enter') register()">
+            <button class="btn" onclick="register()">Create account</button>
+            <div class="error" id="reg-error"></div>
+        </div>
+    </div>
+    <div class="footer">Your data stays on your machine</div>
+</div>
+
+<script>
+function switchTab(tab, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+}
+
+async function login() {
+    const username = document.getElementById('login-user').value;
+    const password = document.getElementById('login-pass').value;
+    const form = new FormData();
+    form.append('username', username);
+    form.append('password', password);
+    const res = await fetch('/auth/login', { method: 'POST', body: form });
+    const data = await res.json();
+    if (res.ok) {
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('username', username);
+        window.location.href = '/dashboard';
+    } else {
+        const err = document.getElementById('login-error');
+        err.textContent = data.detail;
+        err.style.display = 'block';
+    }
+}
+
+async function register() {
+    const username = document.getElementById('reg-user').value;
+    const password = document.getElementById('reg-pass').value;
+    const form = new FormData();
+    form.append('username', username);
+    form.append('password', password);
+    const res = await fetch('/auth/register', { method: 'POST', body: form });
+    const data = await res.json();
+    if (res.ok) {
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('username', username);
+        window.location.href = '/dashboard';
+    } else {
+        const err = document.getElementById('reg-error');
+        err.textContent = data.detail;
+        err.style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>
