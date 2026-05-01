@@ -33,6 +33,16 @@ header { background:var(--surface); border-bottom:1px solid var(--border); paddi
 .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 .card-title { font-size:13px; font-weight:500; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; }
 .card-body { padding:20px; }
+
+/* ===== TAB SWITCHER ===== */
+.tab-switcher { display:flex; background:var(--surface2); border-radius:var(--radius-sm); padding:3px; margin-bottom:16px; gap:2px; }
+.tab-btn { flex:1; padding:7px 12px; border:none; border-radius:4px; font-family:inherit; font-size:13px; font-weight:500; cursor:pointer; background:transparent; color:var(--text3); transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; }
+.tab-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.tab-btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.8; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* ===== UPLOAD PANEL ===== */
 .upload-area { border:1.5px dashed var(--border); border-radius:var(--radius-sm); padding:32px 20px; text-align:center; cursor:pointer; transition:all 0.2s; background:var(--bg); }
 .upload-area:hover, .upload-area.drag { border-color:var(--accent); background:var(--accent-light); }
 .upload-icon { width:40px; height:40px; background:var(--surface2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; transition:background 0.2s; }
@@ -58,6 +68,48 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .loading-bar.show { display:block; }
 .loading-fill { height:100%; background:var(--accent); border-radius:2px; animation:loading 1.5s ease-in-out infinite; }
 @keyframes loading { 0%{transform:scaleX(0);transform-origin:left} 50%{transform:scaleX(1);transform-origin:left} 51%{transform-origin:right} 100%{transform:scaleX(0);transform-origin:right} }
+
+/* ===== WEBCAM PANEL ===== */
+.webcam-wrap { position:relative; border-radius:var(--radius-sm); overflow:hidden; background:#000; aspect-ratio:4/3; margin-bottom:12px; }
+#webcam-video { width:100%; height:100%; object-fit:cover; display:block; }
+#webcam-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+.webcam-overlay { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; background:rgba(0,0,0,0.7); cursor:pointer; transition:opacity 0.2s; }
+.webcam-overlay.hidden { display:none; }
+.webcam-start-icon { width:48px; height:48px; background:rgba(255,255,255,0.15); border:1.5px solid rgba(255,255,255,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.webcam-start-icon svg { width:20px; height:20px; stroke:white; fill:none; }
+.webcam-overlay p { font-size:13px; color:rgba(255,255,255,0.7); }
+
+/* Live indicator */
+.webcam-live-badge { position:absolute; top:10px; left:10px; display:none; align-items:center; gap:5px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:3px 9px; font-size:11px; font-weight:500; color:white; backdrop-filter:blur(4px); }
+.webcam-live-badge.show { display:flex; }
+.live-dot { width:6px; height:6px; border-radius:50%; background:#ef4444; animation:livepulse 1.2s ease-in-out infinite; }
+@keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* Capture flash */
+.capture-flash { position:absolute; inset:0; background:white; opacity:0; pointer-events:none; border-radius:var(--radius-sm); transition:opacity 0.05s; }
+.capture-flash.flash { opacity:0.7; }
+
+.webcam-controls { display:flex; gap:8px; margin-bottom:12px; }
+.btn-webcam { flex:1; padding:9px 12px; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:inherit; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; }
+.btn-webcam svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.8; }
+.btn-webcam-start { background:var(--accent); color:white; border-color:var(--accent); }
+.btn-webcam-start:hover { background:#1d4ed8; }
+.btn-webcam-stop { background:var(--surface2); color:var(--text2); }
+.btn-webcam-stop:hover { background:var(--danger-light); color:var(--danger); border-color:var(--danger); }
+.btn-webcam-capture { background:var(--text); color:white; border-color:var(--text); }
+.btn-webcam-capture:hover:not(:disabled) { background:#111; transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+.btn-webcam-capture:disabled { background:var(--border); color:var(--text3); cursor:not-allowed; border-color:var(--border); transform:none; }
+.webcam-status { font-size:12px; color:var(--text3); text-align:center; padding:6px 0; min-height:24px; }
+.webcam-status.error { color:var(--danger); }
+.webcam-status.ok { color:var(--success); }
+
+/* Captured preview */
+.captured-preview { display:none; margin-top:10px; }
+.captured-preview.show { display:block; }
+.captured-preview-label { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text3); font-weight:500; margin-bottom:6px; }
+.captured-preview img { width:100%; border-radius:var(--radius-sm); border:1px solid var(--border); display:block; }
+
+/* ===== RESULT PANEL ===== */
 .result-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; text-align:center; }
 .result-empty-icon { width:48px; height:48px; background:var(--surface2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
 .result-empty-icon svg { width:20px; height:20px; stroke:var(--text3); fill:none; }
@@ -131,6 +183,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .face-dot { width:6px; height:6px; border-radius:50%; }
 .face-dot.found { background:var(--success); }
 .face-dot.not-found { background:var(--warn); }
+
+/* History */
 .history-section { grid-column:1 / -1; }
 .history-table { width:100%; border-collapse:collapse; }
 .history-table th { text-align:left; padding:10px 16px; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:var(--text3); border-bottom:1px solid var(--border); background:var(--bg); }
@@ -174,50 +228,114 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 
 <div class="page">
 
-    <!-- Upload -->
+    <!-- Left panel -->
     <div class="card" style="align-self:start">
-        <div class="card-header"><span class="card-title">Upload</span></div>
+        <div class="card-header"><span class="card-title">Input</span></div>
         <div class="card-body">
-            <div class="upload-area" id="drop-zone"
-                 onclick="document.getElementById('file-input').click()"
-                 ondragover="event.preventDefault();this.classList.add('drag')"
-                 ondragleave="this.classList.remove('drag')"
-                 ondrop="handleDrop(event)">
-                <div class="upload-icon">
-                    <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-                </div>
-                <div class="upload-title">Drop your file here</div>
-                <div class="upload-sub">JPG, PNG, MP4, MOV supported</div>
+
+            <!-- Tab switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn active" id="tab-upload-btn" onclick="switchTab('upload')">
+                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                    Upload
+                </button>
+                <button class="tab-btn" id="tab-webcam-btn" onclick="switchTab('webcam')">
+                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"/></svg>
+                    Webcam
+                </button>
             </div>
 
-            <div class="file-selected" id="file-info">
-                <div class="file-icon">
-                    <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+            <!-- Upload tab -->
+            <div class="tab-panel active" id="tab-upload">
+                <div class="upload-area" id="drop-zone"
+                     onclick="document.getElementById('file-input').click()"
+                     ondragover="event.preventDefault();this.classList.add('drag')"
+                     ondragleave="this.classList.remove('drag')"
+                     ondrop="handleDrop(event)">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                    </div>
+                    <div class="upload-title">Drop your file here</div>
+                    <div class="upload-sub">JPG, PNG, MP4, MOV supported</div>
                 </div>
-                <div>
-                    <div class="file-name" id="file-name-text">—</div>
-                    <div class="file-size" id="file-size-text">—</div>
+
+                <div class="file-selected" id="file-info">
+                    <div class="file-icon">
+                        <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                    </div>
+                    <div>
+                        <div class="file-name" id="file-name-text">—</div>
+                        <div class="file-size" id="file-size-text">—</div>
+                    </div>
+                </div>
+
+                <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.mp4,.mov" style="display:none" onchange="handleFile(event)">
+
+                <div class="threshold-row">
+                    <span class="threshold-label">Confidence threshold</span>
+                    <span class="threshold-val" id="threshold-display">60%</span>
+                </div>
+                <input type="range" min="40" max="90" value="60" step="1" id="threshold-slider"
+                       oninput="document.getElementById('threshold-display').textContent=this.value+'%'">
+                <div style="display:flex;justify-content:space-between;margin-top:4px">
+                    <span style="font-size:11px;color:var(--text3)">Lenient</span>
+                    <span style="font-size:11px;color:var(--text3)">Strict</span>
+                </div>
+                <button class="btn-analyze" id="analyze-btn" onclick="analyze()" disabled>Analyze file</button>
+                <div class="loading-bar" id="loading-bar"><div class="loading-fill"></div></div>
+            </div>
+
+            <!-- Webcam tab -->
+            <div class="tab-panel" id="tab-webcam">
+                <div class="webcam-wrap">
+                    <video id="webcam-video" autoplay playsinline muted></video>
+                    <canvas id="webcam-overlay-canvas"></canvas>
+                    <div class="webcam-overlay" id="webcam-overlay" onclick="startWebcam()">
+                        <div class="webcam-start-icon">
+                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/></svg>
+                        </div>
+                        <p>Click to start camera</p>
+                    </div>
+                    <div class="webcam-live-badge" id="webcam-live-badge">
+                        <span class="live-dot"></span> LIVE
+                    </div>
+                    <div class="capture-flash" id="capture-flash"></div>
+                </div>
+
+                <div class="webcam-controls">
+                    <button class="btn-webcam btn-webcam-stop" id="btn-stop-cam" onclick="stopWebcam()" style="display:none">
+                        <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+                        Stop
+                    </button>
+                    <button class="btn-webcam btn-webcam-capture" id="btn-capture" onclick="captureFrame()" disabled>
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175"/></svg>
+                        Capture &amp; Analyze
+                    </button>
+                </div>
+
+                <div class="webcam-status" id="webcam-status">Camera off — click to start</div>
+
+                <div class="captured-preview" id="captured-preview">
+                    <div class="captured-preview-label">Captured frame</div>
+                    <img id="captured-img" src="" alt="Captured frame">
+                </div>
+
+                <div class="threshold-row" style="margin-top:12px">
+                    <span class="threshold-label">Confidence threshold</span>
+                    <span class="threshold-val" id="wc-threshold-display">60%</span>
+                </div>
+                <input type="range" min="40" max="90" value="60" step="1" id="wc-threshold-slider"
+                       oninput="document.getElementById('wc-threshold-display').textContent=this.value+'%'">
+                <div style="display:flex;justify-content:space-between;margin-top:4px">
+                    <span style="font-size:11px;color:var(--text3)">Lenient</span>
+                    <span style="font-size:11px;color:var(--text3)">Strict</span>
                 </div>
             </div>
 
-            <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.mp4,.mov" style="display:none" onchange="handleFile(event)">
-
-            <div class="threshold-row">
-                <span class="threshold-label">Confidence threshold</span>
-                <span class="threshold-val" id="threshold-display">60%</span>
-            </div>
-            <input type="range" min="40" max="90" value="60" step="1" id="threshold-slider"
-                   oninput="document.getElementById('threshold-display').textContent=this.value+'%'">
-            <div style="display:flex;justify-content:space-between;margin-top:4px">
-                <span style="font-size:11px;color:var(--text3)">Lenient</span>
-                <span style="font-size:11px;color:var(--text3)">Strict</span>
-            </div>
-            <button class="btn-analyze" id="analyze-btn" onclick="analyze()" disabled>Analyze file</button>
-            <div class="loading-bar" id="loading-bar"><div class="loading-fill"></div></div>
         </div>
     </div>
 
-    <!-- Result -->
+    <!-- Result panel -->
     <div class="card">
         <div class="card-header">
             <span class="card-title">Analysis result</span>
@@ -228,15 +346,13 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
         </div>
         <div class="card-body">
 
-            <!-- Empty -->
             <div class="result-empty" id="result-empty">
                 <div class="result-empty-icon">
                     <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
-                <p>Upload a file to start analysis</p>
+                <p>Upload a file or capture from webcam to start analysis</p>
             </div>
 
-            <!-- Analysis animation -->
             <div class="analysis-overlay" id="analysis-overlay">
                 <div class="face-mesh-wrap">
                     <div class="mesh-scan"></div>
@@ -282,7 +398,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                 </div>
             </div>
 
-            <!-- Verdict -->
             <div class="verdict-section" id="verdict-section">
                 <div class="verdict-header">
                     <div>
@@ -340,12 +455,23 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 </div>
 
 <script>
+// ===== AUTH =====
 const token = localStorage.getItem('token');
 const username = localStorage.getItem('username');
 if (!token) window.location.href = '/';
 document.getElementById('username-display').textContent = username || '—';
 if (username) document.getElementById('user-initial').textContent = username[0].toUpperCase();
 
+// ===== TABS =====
+function switchTab(tab) {
+    document.getElementById('tab-upload').classList.toggle('active', tab === 'upload');
+    document.getElementById('tab-webcam').classList.toggle('active', tab === 'webcam');
+    document.getElementById('tab-upload-btn').classList.toggle('active', tab === 'upload');
+    document.getElementById('tab-webcam-btn').classList.toggle('active', tab === 'webcam');
+    if (tab !== 'webcam') stopWebcam();
+}
+
+// ===== UPLOAD =====
 let selectedFile = null;
 
 function handleFile(e) { selectedFile = e.target.files[0]; showFile(); }
@@ -363,15 +489,98 @@ function showFile() {
     document.getElementById('analyze-btn').disabled = false;
 }
 
+// ===== WEBCAM =====
+let webcamStream = null;
+
+async function startWebcam() {
+    const statusEl = document.getElementById('webcam-status');
+    statusEl.textContent = 'Requesting camera access...';
+    statusEl.className = 'webcam-status';
+    try {
+        webcamStream = await navigator.mediaDevices.getUserMedia({
+            video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' },
+            audio: false
+        });
+        const video = document.getElementById('webcam-video');
+        video.srcObject = webcamStream;
+        await video.play();
+
+        document.getElementById('webcam-overlay').classList.add('hidden');
+        document.getElementById('webcam-live-badge').classList.add('show');
+        document.getElementById('btn-stop-cam').style.display = 'flex';
+        document.getElementById('btn-capture').disabled = false;
+        statusEl.textContent = 'Camera active — position face in frame';
+        statusEl.className = 'webcam-status ok';
+    } catch (err) {
+        statusEl.className = 'webcam-status error';
+        if (err.name === 'NotAllowedError') {
+            statusEl.textContent = 'Camera permission denied — allow access in browser settings';
+        } else if (err.name === 'NotFoundError') {
+            statusEl.textContent = 'No camera found on this device';
+        } else {
+            statusEl.textContent = 'Camera error: ' + err.message;
+        }
+    }
+}
+
+function stopWebcam() {
+    if (webcamStream) {
+        webcamStream.getTracks().forEach(t => t.stop());
+        webcamStream = null;
+    }
+    const video = document.getElementById('webcam-video');
+    video.srcObject = null;
+    document.getElementById('webcam-overlay').classList.remove('hidden');
+    document.getElementById('webcam-live-badge').classList.remove('show');
+    document.getElementById('btn-stop-cam').style.display = 'none';
+    document.getElementById('btn-capture').disabled = true;
+    document.getElementById('webcam-status').textContent = 'Camera off — click to start';
+    document.getElementById('webcam-status').className = 'webcam-status';
+}
+
+function captureFrame() {
+    const video = document.getElementById('webcam-video');
+    if (!video.srcObject) return;
+
+    // Flash effect
+    const flash = document.getElementById('capture-flash');
+    flash.classList.add('flash');
+    setTimeout(() => flash.classList.remove('flash'), 150);
+
+    // Draw frame to offscreen canvas
+    const offscreen = document.createElement('canvas');
+    offscreen.width = video.videoWidth || 640;
+    offscreen.height = video.videoHeight || 480;
+    offscreen.getContext('2d').drawImage(video, 0, 0);
+
+    // Show captured preview
+    const previewImg = document.getElementById('captured-img');
+    previewImg.src = offscreen.toDataURL('image/jpeg', 0.92);
+    document.getElementById('captured-preview').classList.add('show');
+
+    // Convert to Blob → File → analyze
+    offscreen.toBlob(async (blob) => {
+        const file = new File([blob], 'webcam_capture.jpg', { type: 'image/jpeg' });
+        await analyzeFile(file, 'webcam_capture.jpg', document.getElementById('wc-threshold-slider').value / 100);
+    }, 'image/jpeg', 0.92);
+}
+
 // ===== FACE MESH =====
 async function runFaceMesh(file) {
     const canvas = document.getElementById('mesh-canvas');
     const ctx = canvas.getContext('2d');
     const label = document.getElementById('mesh-label');
 
-    // Draw image on canvas first
+    let imgSrc;
+    if (typeof file === 'string') {
+        // Already a data URL (from webcam capture)
+        imgSrc = file;
+    } else {
+        imgSrc = URL.createObjectURL(file);
+    }
+
     const img = new Image();
-    img.src = URL.createObjectURL(file);
+    img.src = imgSrc;
     await new Promise(r => { img.onload = r; });
     canvas.width = 220; canvas.height = 220;
     ctx.drawImage(img, 0, 0, 220, 220);
@@ -381,85 +590,32 @@ async function runFaceMesh(file) {
         const faceMesh = new FaceMesh({
             locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${f}`
         });
-
-        faceMesh.setOptions({
-            maxNumFaces: 1,
-            refineLandmarks: true,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5
-        });
+        faceMesh.setOptions({ maxNumFaces:1, refineLandmarks:true, minDetectionConfidence:0.5, minTrackingConfidence:0.5 });
 
         await new Promise((resolve) => {
             faceMesh.onResults((results) => {
-                // Redraw original image
                 ctx.drawImage(img, 0, 0, 220, 220);
-
                 if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
-                    const landmarks = results.multiFaceLandmarks[0];
-
-                    // Mesh tessellation (fine grid)
-                    drawConnectors(ctx, landmarks, FACEMESH_TESSELATION, {
-                        color: 'rgba(37,99,235,0.12)',
-                        lineWidth: 0.4
-                    });
-
-                    // Face oval outline
-                    drawConnectors(ctx, landmarks, FACEMESH_FACE_OVAL, {
-                        color: 'rgba(37,99,235,0.7)',
-                        lineWidth: 1.5
-                    });
-
-                    // Left eye
-                    drawConnectors(ctx, landmarks, FACEMESH_LEFT_EYE, {
-                        color: 'rgba(99,102,241,0.9)',
-                        lineWidth: 1.5
-                    });
-
-                    // Right eye
-                    drawConnectors(ctx, landmarks, FACEMESH_RIGHT_EYE, {
-                        color: 'rgba(99,102,241,0.9)',
-                        lineWidth: 1.5
-                    });
-
-                    // Left eyebrow
-                    drawConnectors(ctx, landmarks, FACEMESH_LEFT_EYEBROW, {
-                        color: 'rgba(139,92,246,0.7)',
-                        lineWidth: 1.2
-                    });
-
-                    // Right eyebrow
-                    drawConnectors(ctx, landmarks, FACEMESH_RIGHT_EYEBROW, {
-                        color: 'rgba(139,92,246,0.7)',
-                        lineWidth: 1.2
-                    });
-
-                    // Lips
-                    drawConnectors(ctx, landmarks, FACEMESH_LIPS, {
-                        color: 'rgba(220,38,38,0.7)',
-                        lineWidth: 1.5
-                    });
-
-                    // Landmark dots
-                    drawLandmarks(ctx, landmarks, {
-                        color: 'rgba(37,99,235,0.4)',
-                        lineWidth: 0.3,
-                        radius: 0.6
-                    });
-
+                    const lm = results.multiFaceLandmarks[0];
+                    drawConnectors(ctx, lm, FACEMESH_TESSELATION, { color:'rgba(37,99,235,0.12)', lineWidth:0.4 });
+                    drawConnectors(ctx, lm, FACEMESH_FACE_OVAL, { color:'rgba(37,99,235,0.7)', lineWidth:1.5 });
+                    drawConnectors(ctx, lm, FACEMESH_LEFT_EYE, { color:'rgba(99,102,241,0.9)', lineWidth:1.5 });
+                    drawConnectors(ctx, lm, FACEMESH_RIGHT_EYE, { color:'rgba(99,102,241,0.9)', lineWidth:1.5 });
+                    drawConnectors(ctx, lm, FACEMESH_LEFT_EYEBROW, { color:'rgba(139,92,246,0.7)', lineWidth:1.2 });
+                    drawConnectors(ctx, lm, FACEMESH_RIGHT_EYEBROW, { color:'rgba(139,92,246,0.7)', lineWidth:1.2 });
+                    drawConnectors(ctx, lm, FACEMESH_LIPS, { color:'rgba(220,38,38,0.7)', lineWidth:1.5 });
+                    drawLandmarks(ctx, lm, { color:'rgba(37,99,235,0.4)', lineWidth:0.3, radius:0.6 });
                     label.textContent = '468 landmarks detected';
                 } else {
                     label.textContent = 'no face detected — using full image';
                 }
                 resolve();
             });
-
             faceMesh.send({ image: img });
         });
-
     } catch (err) {
         console.log('FaceMesh error:', err);
         label.textContent = 'face mesh unavailable';
-        // Fallback: just show image
         ctx.drawImage(img, 0, 0, 220, 220);
     }
 }
@@ -487,36 +643,36 @@ function showAnalysis(filename) {
     document.getElementById('analysis-overlay').classList.add('show');
     document.getElementById('as1-sub').textContent = filename;
     document.getElementById('mesh-label').textContent = 'preparing face mesh...';
-    // Clear canvas
     const canvas = document.getElementById('mesh-canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function hideAnalysis() {
     document.getElementById('analysis-overlay').classList.remove('show');
 }
 
-async function analyze() {
-    if (!selectedFile) return;
-    document.getElementById('analyze-btn').disabled = true;
-    document.getElementById('loading-bar').classList.add('show');
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    showAnalysis(selectedFile.name);
+// ===== ANALYZE (shared logic) =====
+async function analyzeFile(file, label, threshold) {
+    showAnalysis(label);
     setStep(0);
 
-    // Run face mesh on uploaded image simultaneously
-    const meshPromise = runFaceMesh(selectedFile);
+    // For webcam: use data URL already captured; for file upload: create object URL
+    const meshSrc = file.type === 'image/jpeg' && label === 'webcam_capture.jpg'
+        ? document.getElementById('captured-img').src
+        : file;
+
+    const meshPromise = runFaceMesh(meshSrc);
 
     await sleep(500);
     setStep(1);
-    await meshPromise; // wait for mesh to finish
+    await meshPromise;
     await sleep(400);
     setStep(2);
 
-    const threshold = document.getElementById('threshold-slider').value / 100;
     const form = new FormData();
-    form.append('file', selectedFile);
+    form.append('file', file);
     form.append('threshold', threshold);
 
     try {
@@ -539,19 +695,25 @@ async function analyze() {
         hideAnalysis();
         showResult(data);
         loadHistory();
-
     } catch (err) {
         hideAnalysis();
         document.getElementById('result-empty').style.display = 'flex';
         alert('Error: ' + err.message);
-    } finally {
-        document.getElementById('loading-bar').classList.remove('show');
-        document.getElementById('analyze-btn').disabled = false;
     }
 }
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+// ===== UPLOAD analyze button =====
+async function analyze() {
+    if (!selectedFile) return;
+    document.getElementById('analyze-btn').disabled = true;
+    document.getElementById('loading-bar').classList.add('show');
+    const threshold = document.getElementById('threshold-slider').value / 100;
+    await analyzeFile(selectedFile, selectedFile.name, threshold);
+    document.getElementById('loading-bar').classList.remove('show');
+    document.getElementById('analyze-btn').disabled = false;
+}
 
+// ===== RESULT =====
 function showResult(data) {
     const pred = data.prediction.toLowerCase();
     const conf = data.confidence;
@@ -564,6 +726,7 @@ function showResult(data) {
     fill.style.width = conf + '%';
     const exp = document.getElementById('explanation');
     if (data.why_fake) { exp.innerHTML = data.why_fake; exp.classList.add('show'); }
+    else { exp.classList.remove('show'); }
     document.getElementById('face-img').src = 'data:image/png;base64,' + data.face_image;
     document.getElementById('heatmap-img').src = 'data:image/png;base64,' + data.heatmap;
     const faceInline = document.getElementById('face-inline');
@@ -574,10 +737,13 @@ function showResult(data) {
         const fr = document.getElementById('frame-results');
         fr.textContent = data.frame_results;
         fr.classList.add('show');
+    } else {
+        document.getElementById('frame-results').classList.remove('show');
     }
     document.getElementById('verdict-section').classList.add('show');
 }
 
+// ===== HISTORY =====
 async function loadHistory() {
     const res = await fetch('/history', { headers: { 'Authorization': `Bearer ${token}` } });
     const data = await res.json();
@@ -613,6 +779,7 @@ async function deleteRecord(id) {
 }
 
 function logout() {
+    stopWebcam();
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     window.location.href = '/';
