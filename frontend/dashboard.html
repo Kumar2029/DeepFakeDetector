@@ -34,7 +34,7 @@ header { background:var(--surface); border-bottom:1px solid var(--border); paddi
 .card-title { font-size:13px; font-weight:500; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; }
 .card-body { padding:20px; }
 
-/* ===== TAB SWITCHER ===== */
+/* TAB SWITCHER */
 .tab-switcher { display:flex; background:var(--surface2); border-radius:var(--radius-sm); padding:3px; margin-bottom:16px; gap:2px; }
 .tab-btn { flex:1; padding:7px 12px; border:none; border-radius:4px; font-family:inherit; font-size:13px; font-weight:500; cursor:pointer; background:transparent; color:var(--text3); transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; }
 .tab-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
@@ -42,7 +42,7 @@ header { background:var(--surface); border-bottom:1px solid var(--border); paddi
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
-/* ===== UPLOAD PANEL ===== */
+/* UPLOAD */
 .upload-area { border:1.5px dashed var(--border); border-radius:var(--radius-sm); padding:32px 20px; text-align:center; cursor:pointer; transition:all 0.2s; background:var(--bg); }
 .upload-area:hover, .upload-area.drag { border-color:var(--accent); background:var(--accent-light); }
 .upload-icon { width:40px; height:40px; background:var(--surface2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; transition:background 0.2s; }
@@ -69,31 +69,24 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .loading-fill { height:100%; background:var(--accent); border-radius:2px; animation:loading 1.5s ease-in-out infinite; }
 @keyframes loading { 0%{transform:scaleX(0);transform-origin:left} 50%{transform:scaleX(1);transform-origin:left} 51%{transform-origin:right} 100%{transform:scaleX(0);transform-origin:right} }
 
-/* ===== WEBCAM PANEL ===== */
+/* WEBCAM */
 .webcam-wrap { position:relative; border-radius:var(--radius-sm); overflow:hidden; background:#000; aspect-ratio:4/3; margin-bottom:12px; }
 #webcam-video { width:100%; height:100%; object-fit:cover; display:block; }
-#webcam-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+#webcam-overlay-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
 .webcam-overlay { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; background:rgba(0,0,0,0.7); cursor:pointer; transition:opacity 0.2s; }
 .webcam-overlay.hidden { display:none; }
 .webcam-start-icon { width:48px; height:48px; background:rgba(255,255,255,0.15); border:1.5px solid rgba(255,255,255,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; }
 .webcam-start-icon svg { width:20px; height:20px; stroke:white; fill:none; }
 .webcam-overlay p { font-size:13px; color:rgba(255,255,255,0.7); }
-
-/* Live indicator */
 .webcam-live-badge { position:absolute; top:10px; left:10px; display:none; align-items:center; gap:5px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:3px 9px; font-size:11px; font-weight:500; color:white; backdrop-filter:blur(4px); }
 .webcam-live-badge.show { display:flex; }
 .live-dot { width:6px; height:6px; border-radius:50%; background:#ef4444; animation:livepulse 1.2s ease-in-out infinite; }
 @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-/* Capture flash */
 .capture-flash { position:absolute; inset:0; background:white; opacity:0; pointer-events:none; border-radius:var(--radius-sm); transition:opacity 0.05s; }
 .capture-flash.flash { opacity:0.7; }
-
 .webcam-controls { display:flex; gap:8px; margin-bottom:12px; }
 .btn-webcam { flex:1; padding:9px 12px; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:inherit; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; justify-content:center; gap:6px; }
 .btn-webcam svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.8; }
-.btn-webcam-start { background:var(--accent); color:white; border-color:var(--accent); }
-.btn-webcam-start:hover { background:#1d4ed8; }
 .btn-webcam-stop { background:var(--surface2); color:var(--text2); }
 .btn-webcam-stop:hover { background:var(--danger-light); color:var(--danger); border-color:var(--danger); }
 .btn-webcam-capture { background:var(--text); color:white; border-color:var(--text); }
@@ -102,43 +95,22 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .webcam-status { font-size:12px; color:var(--text3); text-align:center; padding:6px 0; min-height:24px; }
 .webcam-status.error { color:var(--danger); }
 .webcam-status.ok { color:var(--success); }
-
-/* Captured preview */
 .captured-preview { display:none; margin-top:10px; }
 .captured-preview.show { display:block; }
 .captured-preview-label { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text3); font-weight:500; margin-bottom:6px; }
 .captured-preview img { width:100%; border-radius:var(--radius-sm); border:1px solid var(--border); display:block; }
 
-/* ===== RESULT PANEL ===== */
+/* RESULT */
 .result-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; text-align:center; }
 .result-empty-icon { width:48px; height:48px; background:var(--surface2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
 .result-empty-icon svg { width:20px; height:20px; stroke:var(--text3); fill:none; }
 .result-empty p { font-size:13px; color:var(--text3); }
-
-/* Analysis overlay */
 .analysis-overlay { display:none; flex-direction:column; align-items:center; padding:16px 4px; }
 .analysis-overlay.show { display:flex; }
 .face-mesh-wrap { position:relative; margin-bottom:20px; }
-.mesh-scan {
-    position:absolute; left:0; right:0;
-    height:2px; background:var(--accent);
-    opacity:0; border-radius:1px;
-    animation:meshscan 2s ease-in-out infinite;
-    top:0; pointer-events:none; z-index:2;
-}
-@keyframes meshscan {
-    0%   { top:0%;   opacity:0; }
-    10%  { opacity:0.7; }
-    50%  { top:95%;  opacity:0.9; }
-    90%  { opacity:0.7; }
-    100% { top:0%;   opacity:0; }
-}
-#mesh-canvas {
-    border-radius:8px;
-    border:1px solid var(--border);
-    display:block;
-    background:var(--surface2);
-}
+.mesh-scan { position:absolute; left:0; right:0; height:2px; background:var(--accent); opacity:0; border-radius:1px; animation:meshscan 2s ease-in-out infinite; top:0; pointer-events:none; z-index:2; }
+@keyframes meshscan { 0%{top:0%;opacity:0} 10%{opacity:0.7} 50%{top:95%;opacity:0.9} 90%{opacity:0.7} 100%{top:0%;opacity:0} }
+#mesh-canvas { border-radius:8px; border:1px solid var(--border); display:block; background:var(--surface2); }
 .mesh-label { text-align:center; font-size:9px; color:var(--text3); font-family:'DM Mono',monospace; margin-top:6px; }
 .analysis-steps { width:100%; display:flex; flex-direction:column; gap:8px; }
 .astep { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); transition:all 0.3s; }
@@ -155,8 +127,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .astep.idle .astep-sub { color:var(--text3); }
 .mini-spinner { width:12px; height:12px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; }
 @keyframes spin { to{transform:rotate(360deg)} }
-
-/* Result */
 .verdict-section { display:none; }
 .verdict-section.show { display:block; }
 .verdict-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; }
@@ -184,7 +154,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 .face-dot.found { background:var(--success); }
 .face-dot.not-found { background:var(--warn); }
 
-/* History */
+/* HISTORY */
 .history-section { grid-column:1 / -1; }
 .history-table { width:100%; border-collapse:collapse; }
 .history-table th { text-align:left; padding:10px 16px; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:var(--text3); border-bottom:1px solid var(--border); background:var(--bg); }
@@ -228,12 +198,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 
 <div class="page">
 
-    <!-- Left panel -->
     <div class="card" style="align-self:start">
         <div class="card-header"><span class="card-title">Input</span></div>
         <div class="card-body">
 
-            <!-- Tab switcher -->
             <div class="tab-switcher">
                 <button class="tab-btn active" id="tab-upload-btn" onclick="switchTab('upload')">
                     <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
@@ -245,7 +213,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                 </button>
             </div>
 
-            <!-- Upload tab -->
             <div class="tab-panel active" id="tab-upload">
                 <div class="upload-area" id="drop-zone"
                      onclick="document.getElementById('file-input').click()"
@@ -258,7 +225,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                     <div class="upload-title">Drop your file here</div>
                     <div class="upload-sub">JPG, PNG, MP4, MOV supported</div>
                 </div>
-
                 <div class="file-selected" id="file-info">
                     <div class="file-icon">
                         <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
@@ -268,9 +234,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                         <div class="file-size" id="file-size-text">—</div>
                     </div>
                 </div>
-
                 <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.mp4,.mov" style="display:none" onchange="handleFile(event)">
-
                 <div class="threshold-row">
                     <span class="threshold-label">Confidence threshold</span>
                     <span class="threshold-val" id="threshold-display">60%</span>
@@ -285,7 +249,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                 <div class="loading-bar" id="loading-bar"><div class="loading-fill"></div></div>
             </div>
 
-            <!-- Webcam tab -->
             <div class="tab-panel" id="tab-webcam">
                 <div class="webcam-wrap">
                     <video id="webcam-video" autoplay playsinline muted></video>
@@ -301,7 +264,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                     </div>
                     <div class="capture-flash" id="capture-flash"></div>
                 </div>
-
                 <div class="webcam-controls">
                     <button class="btn-webcam btn-webcam-stop" id="btn-stop-cam" onclick="stopWebcam()" style="display:none">
                         <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
@@ -312,14 +274,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                         Capture &amp; Analyze
                     </button>
                 </div>
-
                 <div class="webcam-status" id="webcam-status">Camera off — click to start</div>
-
                 <div class="captured-preview" id="captured-preview">
                     <div class="captured-preview-label">Captured frame</div>
                     <img id="captured-img" src="" alt="Captured frame">
                 </div>
-
                 <div class="threshold-row" style="margin-top:12px">
                     <span class="threshold-label">Confidence threshold</span>
                     <span class="threshold-val" id="wc-threshold-display">60%</span>
@@ -335,7 +294,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
         </div>
     </div>
 
-    <!-- Result panel -->
     <div class="card">
         <div class="card-header">
             <span class="card-title">Analysis result</span>
@@ -345,7 +303,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
             </span>
         </div>
         <div class="card-body">
-
             <div class="result-empty" id="result-empty">
                 <div class="result-empty-icon">
                     <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -362,38 +319,23 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
                 <div class="analysis-steps">
                     <div class="astep idle" id="as1">
                         <div class="astep-icon"></div>
-                        <div>
-                            <div class="astep-text">Uploading file</div>
-                            <div class="astep-sub" id="as1-sub">Preparing...</div>
-                        </div>
+                        <div><div class="astep-text">Uploading file</div><div class="astep-sub" id="as1-sub">Preparing...</div></div>
                     </div>
                     <div class="astep idle" id="as2">
                         <div class="astep-icon"></div>
-                        <div>
-                            <div class="astep-text">Detecting face</div>
-                            <div class="astep-sub">MTCNN face detection</div>
-                        </div>
+                        <div><div class="astep-text">Detecting face</div><div class="astep-sub" id="as2-sub">MTCNN face detection</div></div>
                     </div>
                     <div class="astep idle" id="as3">
                         <div class="astep-icon"></div>
-                        <div>
-                            <div class="astep-text">Running model</div>
-                            <div class="astep-sub">EfficientNet-B0 inference</div>
-                        </div>
+                        <div><div class="astep-text">Running model</div><div class="astep-sub" id="as3-sub">EfficientNet-B0 inference</div></div>
                     </div>
                     <div class="astep idle" id="as4">
                         <div class="astep-icon"></div>
-                        <div>
-                            <div class="astep-text">Generating heatmap</div>
-                            <div class="astep-sub">Grad-CAM visualization</div>
-                        </div>
+                        <div><div class="astep-text">Generating heatmap</div><div class="astep-sub">Grad-CAM visualization</div></div>
                     </div>
                     <div class="astep idle" id="as5">
                         <div class="astep-icon"></div>
-                        <div>
-                            <div class="astep-text">Finalizing result</div>
-                            <div class="astep-sub">Almost done...</div>
-                        </div>
+                        <div><div class="astep-text">Finalizing result</div><div class="astep-sub">Almost done...</div></div>
                     </div>
                 </div>
             </div>
@@ -430,7 +372,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
         </div>
     </div>
 
-    <!-- History -->
     <div class="card history-section">
         <div class="card-header">
             <span class="card-title">Detection history</span>
@@ -455,14 +396,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:16px;
 </div>
 
 <script>
-// ===== AUTH =====
+// AUTH
 const token = localStorage.getItem('token');
 const username = localStorage.getItem('username');
 if (!token) window.location.href = '/';
 document.getElementById('username-display').textContent = username || '—';
 if (username) document.getElementById('user-initial').textContent = username[0].toUpperCase();
 
-// ===== TABS =====
+// TABS
 function switchTab(tab) {
     document.getElementById('tab-upload').classList.toggle('active', tab === 'upload');
     document.getElementById('tab-webcam').classList.toggle('active', tab === 'webcam');
@@ -471,9 +412,8 @@ function switchTab(tab) {
     if (tab !== 'webcam') stopWebcam();
 }
 
-// ===== UPLOAD =====
+// UPLOAD
 let selectedFile = null;
-
 function handleFile(e) { selectedFile = e.target.files[0]; showFile(); }
 function handleDrop(e) {
     e.preventDefault(); e.currentTarget.classList.remove('drag');
@@ -489,22 +429,19 @@ function showFile() {
     document.getElementById('analyze-btn').disabled = false;
 }
 
-// ===== WEBCAM =====
+// WEBCAM
 let webcamStream = null;
-
 async function startWebcam() {
     const statusEl = document.getElementById('webcam-status');
     statusEl.textContent = 'Requesting camera access...';
     statusEl.className = 'webcam-status';
     try {
         webcamStream = await navigator.mediaDevices.getUserMedia({
-            video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' },
-            audio: false
+            video: { width:{ideal:1280}, height:{ideal:720}, facingMode:'user' }, audio: false
         });
         const video = document.getElementById('webcam-video');
         video.srcObject = webcamStream;
         await video.play();
-
         document.getElementById('webcam-overlay').classList.add('hidden');
         document.getElementById('webcam-live-badge').classList.add('show');
         document.getElementById('btn-stop-cam').style.display = 'flex';
@@ -513,21 +450,14 @@ async function startWebcam() {
         statusEl.className = 'webcam-status ok';
     } catch (err) {
         statusEl.className = 'webcam-status error';
-        if (err.name === 'NotAllowedError') {
-            statusEl.textContent = 'Camera permission denied — allow access in browser settings';
-        } else if (err.name === 'NotFoundError') {
-            statusEl.textContent = 'No camera found on this device';
-        } else {
-            statusEl.textContent = 'Camera error: ' + err.message;
-        }
+        if (err.name === 'NotAllowedError') statusEl.textContent = 'Camera permission denied — allow access in browser settings';
+        else if (err.name === 'NotFoundError') statusEl.textContent = 'No camera found on this device';
+        else statusEl.textContent = 'Camera error: ' + err.message;
     }
 }
 
 function stopWebcam() {
-    if (webcamStream) {
-        webcamStream.getTracks().forEach(t => t.stop());
-        webcamStream = null;
-    }
+    if (webcamStream) { webcamStream.getTracks().forEach(t => t.stop()); webcamStream = null; }
     const video = document.getElementById('webcam-video');
     video.srcObject = null;
     document.getElementById('webcam-overlay').classList.remove('hidden');
@@ -541,57 +471,37 @@ function stopWebcam() {
 function captureFrame() {
     const video = document.getElementById('webcam-video');
     if (!video.srcObject) return;
-
-    // Flash effect
     const flash = document.getElementById('capture-flash');
     flash.classList.add('flash');
     setTimeout(() => flash.classList.remove('flash'), 150);
-
-    // Draw frame to offscreen canvas
     const offscreen = document.createElement('canvas');
     offscreen.width = video.videoWidth || 640;
     offscreen.height = video.videoHeight || 480;
     offscreen.getContext('2d').drawImage(video, 0, 0);
-
-    // Show captured preview
     const previewImg = document.getElementById('captured-img');
     previewImg.src = offscreen.toDataURL('image/jpeg', 0.92);
     document.getElementById('captured-preview').classList.add('show');
-
-    // Convert to Blob → File → analyze
     offscreen.toBlob(async (blob) => {
         const file = new File([blob], 'webcam_capture.jpg', { type: 'image/jpeg' });
         await analyzeFile(file, 'webcam_capture.jpg', document.getElementById('wc-threshold-slider').value / 100);
     }, 'image/jpeg', 0.92);
 }
 
-// ===== FACE MESH =====
-async function runFaceMesh(file) {
+// FACE MESH
+async function runFaceMesh(src) {
     const canvas = document.getElementById('mesh-canvas');
     const ctx = canvas.getContext('2d');
     const label = document.getElementById('mesh-label');
-
-    let imgSrc;
-    if (typeof file === 'string') {
-        // Already a data URL (from webcam capture)
-        imgSrc = file;
-    } else {
-        imgSrc = URL.createObjectURL(file);
-    }
-
+    const imgSrc = typeof src === 'string' ? src : URL.createObjectURL(src);
     const img = new Image();
     img.src = imgSrc;
     await new Promise(r => { img.onload = r; });
     canvas.width = 220; canvas.height = 220;
     ctx.drawImage(img, 0, 0, 220, 220);
     label.textContent = 'running face mesh...';
-
     try {
-        const faceMesh = new FaceMesh({
-            locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${f}`
-        });
+        const faceMesh = new FaceMesh({ locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${f}` });
         faceMesh.setOptions({ maxNumFaces:1, refineLandmarks:true, minDetectionConfidence:0.5, minTrackingConfidence:0.5 });
-
         await new Promise((resolve) => {
             faceMesh.onResults((results) => {
                 ctx.drawImage(img, 0, 0, 220, 220);
@@ -620,7 +530,26 @@ async function runFaceMesh(file) {
     }
 }
 
-// ===== STEPS =====
+function showVideoPlaceholder() {
+    const canvas = document.getElementById('mesh-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 220; canvas.height = 220;
+    ctx.fillStyle = '#f0efe9';
+    ctx.fillRect(0, 0, 220, 220);
+    // Video icon
+    ctx.fillStyle = '#9b9a94';
+    ctx.beginPath();
+    ctx.roundRect(55, 70, 110, 80, 8);
+    ctx.fill();
+    ctx.fillStyle = '#f0efe9';
+    ctx.beginPath();
+    ctx.moveTo(95, 90); ctx.lineTo(95, 130); ctx.lineTo(135, 110);
+    ctx.closePath();
+    ctx.fill();
+    document.getElementById('mesh-label').textContent = 'analyzing video frames...';
+}
+
+// STEPS
 function setStep(step) {
     ['as1','as2','as3','as4','as5'].forEach((id, i) => {
         const el = document.getElementById(id);
@@ -642,7 +571,7 @@ function showAnalysis(filename) {
     document.getElementById('verdict-section').classList.remove('show');
     document.getElementById('analysis-overlay').classList.add('show');
     document.getElementById('as1-sub').textContent = filename;
-    document.getElementById('mesh-label').textContent = 'preparing face mesh...';
+    document.getElementById('mesh-label').textContent = 'preparing...';
     const canvas = document.getElementById('mesh-canvas');
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -653,17 +582,28 @@ function hideAnalysis() {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// ===== ANALYZE (shared logic) =====
+// ANALYZE — shared logic
 async function analyzeFile(file, label, threshold) {
+    const isVideo = file.type.startsWith('video/');
+
     showAnalysis(label);
     setStep(0);
 
-    // For webcam: use data URL already captured; for file upload: create object URL
-    const meshSrc = file.type === 'image/jpeg' && label === 'webcam_capture.jpg'
+    // Video: show placeholder + update step labels
+    if (isVideo) {
+        showVideoPlaceholder();
+        document.getElementById('as2-sub').textContent = 'Extracting 10 frames';
+        document.getElementById('as3-sub').textContent = 'Running model on each frame';
+    } else {
+        document.getElementById('as2-sub').textContent = 'MTCNN face detection';
+        document.getElementById('as3-sub').textContent = 'EfficientNet-B0 inference';
+    }
+
+    // Face mesh: skip for video, run for images
+    const meshSrc = (!isVideo && label === 'webcam_capture.jpg')
         ? document.getElementById('captured-img').src
         : file;
-
-    const meshPromise = runFaceMesh(meshSrc);
+    const meshPromise = isVideo ? Promise.resolve() : runFaceMesh(meshSrc);
 
     await sleep(500);
     setStep(1);
@@ -676,6 +616,7 @@ async function analyzeFile(file, label, threshold) {
     form.append('threshold', threshold);
 
     try {
+        // Fire fetch immediately — don't wait before setting step 3
         const fetchPromise = fetch('/predict', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` },
@@ -685,7 +626,14 @@ async function analyzeFile(file, label, threshold) {
         await sleep(700);
         setStep(3);
 
+        // Wait for backend — video may take 30-60s, no timeout
         const res = await fetchPromise;
+
+        if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`Server error ${res.status}: ${text.slice(0, 200)}`);
+        }
+
         const data = await res.json();
 
         await sleep(500);
@@ -695,6 +643,7 @@ async function analyzeFile(file, label, threshold) {
         hideAnalysis();
         showResult(data);
         loadHistory();
+
     } catch (err) {
         hideAnalysis();
         document.getElementById('result-empty').style.display = 'flex';
@@ -702,7 +651,7 @@ async function analyzeFile(file, label, threshold) {
     }
 }
 
-// ===== UPLOAD analyze button =====
+// UPLOAD button
 async function analyze() {
     if (!selectedFile) return;
     document.getElementById('analyze-btn').disabled = true;
@@ -713,7 +662,7 @@ async function analyze() {
     document.getElementById('analyze-btn').disabled = false;
 }
 
-// ===== RESULT =====
+// RESULT
 function showResult(data) {
     const pred = data.prediction.toLowerCase();
     const conf = data.confidence;
@@ -743,7 +692,7 @@ function showResult(data) {
     document.getElementById('verdict-section').classList.add('show');
 }
 
-// ===== HISTORY =====
+// HISTORY
 async function loadHistory() {
     const res = await fetch('/history', { headers: { 'Authorization': `Bearer ${token}` } });
     const data = await res.json();

@@ -32,7 +32,7 @@ print("Loading pipeline...")
 predictor = DeepfakePredictor()
 face_detector = FaceDetector()
 video_analyzer = VideoAnalyzer(num_frames=10)
-gradcam = GradCAM(predictor.model)
+gradcam = GradCAM(predictor.model_primary)
 print("Pipeline ready!")
 
 os.makedirs("uploads", exist_ok=True)
@@ -80,11 +80,10 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 @app.post("/predict")
 async def predict(
     file: UploadFile = File(...),
-    threshold: float = Form(0.6),
+    threshold: float = Form(0.45),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    # Save uploaded file
     ext = file.filename.split(".")[-1]
     save_path = f"uploads/{current_user.id}_{file.filename}"
     with open(save_path, "wb") as f:
@@ -111,7 +110,6 @@ async def predict(
             else:
                 label = "REAL" if pred == 0 else "DEEPFAKE"
 
-            # Convert images to base64
             def img_to_b64(img):
                 buf = io.BytesIO()
                 img.save(buf, format="PNG")
